@@ -1,0 +1,382 @@
+@use "../variables/" as v;
+
+.main-container {
+  width: fit-content;
+  max-width: 62.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: var(--white);
+  border-radius: 1.5rem;
+
+  @include v.breakpoint(medium) {
+    grid-template-columns: 1fr;
+    max-width: calc(100% - 12.5em);
+    border-radius: 1.5rem 1.5rem 1.5rem 5rem;
+    margin-block: 2.5em;
+  }
+
+  @include v.breakpoint(small) {
+    min-width: 100vw;
+    min-height: 100%;
+    border-radius: 0;
+    margin-block: 0;
+  }
+
+  &__left {
+    width: 100%;
+    padding: 2.4rem;
+
+    @include v.breakpoint(small) {
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.4rem;
+
+      @include v.breakpoint(small) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+        margin-bottom: 1.8rem;
+      }
+
+      .reset-btn {
+        height: min-content;
+        border: none;
+        border-bottom: 0.13rem solid var(--medium-blue);
+        background-color: transparent;
+        font-size: 1.1rem;
+        font-weight: v.$medium;
+        color: var(--dark-blue);
+        transition: all 0.3s;
+      }
+
+      .reset-btn:hover,
+      .reset-btn:active {
+        color: var(--darkest-blue);
+      }
+    }
+
+    form {
+      width: 100%;
+
+      .mortgage-amount,
+      .term,
+      .rate {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          position: relative;
+        }
+      }
+
+      .mortgage-amount {
+        h3 {
+          position: absolute;
+          top: 2.04rem;
+          left: 0.03rem;
+          font-size: 1.1rem;
+          font-weight: v.$bold;
+          color: var(--dark-blue);
+          background-color: var(--lightest-blue);
+          padding: 0.94rem 1.2rem;
+          border-radius: 0.4rem 0 0 0.4rem;
+          transition: all 0.3s;
+        }
+
+        input {
+          padding-left: 4.4rem;
+        }
+      }
+
+      .mortgage-amount:has(.amount-input:focus) h3 {
+        background-color: var(--lime);
+        color: var(--darkest-blue);
+      }
+
+      .mortgage-details {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 1.3em;
+
+        @include v.breakpoint(small) {
+          grid-template-columns: 1fr;
+        }
+
+        h3 {
+          position: absolute;
+          top: 2.04rem;
+          right: 0rem;
+          font-size: 1.1rem;
+          font-weight: v.$bold;
+          color: var(--dark-blue);
+          background-color: var(--lightest-blue);
+          padding: 0.95rem 1rem;
+          border-radius: 0 0.4rem 0.4rem 0;
+          transition: all 0.3s;
+        }
+
+        .term:has(.term-input:focus) h3 {
+          background-color: var(--lime);
+          color: var(--darkest-blue);
+        }
+
+        .rate:has(.rate-input:focus) h3 {
+          background-color: var(--lime);
+          color: var(--darkest-blue);
+        }
+
+        .term-input {
+          padding-right: 6.2rem;
+        }
+
+        .rate-input {
+          padding-right: 4.4rem;
+        }
+      }
+
+      .radio-container {
+        line-height: 0;
+        width: 100%;
+        margin-bottom: 1.8rem;
+        margin-top: 0.6rem;
+
+        @include v.breakpoint(small) {
+          margin-bottom: 0.6rem;
+        }
+
+        .radio-options {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+        }
+
+        .radio-item {
+          width: 100%;
+          padding: 1rem;
+          border: 0.09rem solid var(--dark-blue);
+          border-radius: 0.5rem;
+          background-color: transparent;
+          transition: all 0.3s;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+
+          .radio {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 0.2rem solid var(--white);
+            background-color: transparent;
+            border-radius: 50%;
+            outline: 0.1rem solid var(--dark-blue);
+            transition: all 0.3s;
+          }
+
+          .radio:focus-visible {
+            outline-offset: 0;
+          }
+
+          .radio:hover {
+            outline-color: var(--lime);
+          }
+
+          .radio:checked {
+            outline-color: var(--lime);
+            background-color: var(--lime);
+            animation: checked;
+            animation-duration: 0.2s;
+            animation-iteration-count: 4;
+            animation-direction: alternate;
+            animation-timing-function: linear;
+          }
+
+          @keyframes checked {
+            0% {
+              outline-offset: 0;
+            }
+            100% {
+              outline-offset: -0.2rem;
+            }
+          }
+
+          label {
+            font-weight: v.$bold;
+            margin-left: 0.5em;
+            cursor: pointer;
+          }
+        }
+
+        .radio-item:hover,
+        .radio-item:active,
+        .radio-item:focus {
+          border: 0.09rem solid var(--lime);
+        }
+
+        .radio-item:has(.radio:checked) {
+          background-color: hsla(61, 70%, 52%, 0.09);
+          border-color: var(--lime);
+        }
+      }
+
+      // Input icon animation
+      .error-input-icon {
+        animation: rotate-vert-center 0.3s
+          cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+      }
+
+      @keyframes rotate-vert-center {
+        0% {
+          transform: rotateY(0);
+        }
+        100% {
+          transform: rotateY(360deg);
+          background-color: var(--red);
+          color: var(--white);
+        }
+      }
+
+      .hide-error-input-icon {
+        animation: rotate-vert-center-reverse 0.3s
+          cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+      }
+
+      @keyframes rotate-vert-center-reverse {
+        0% {
+          transform: rotateY(360deg);
+          background-color: var(--red);
+          color: var(--white);
+        }
+        100% {
+          transform: rotateY(0);
+        }
+      }
+    }
+
+    .button-container {
+      @include v.breakpoint(medium) {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.4rem;
+      }
+
+      @include v.breakpoint(small) {
+        margin-bottom: 0;
+      }
+
+      .submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        background-color: var(--lime);
+        font-size: 1.125rem;
+        font-weight: v.$bold;
+        color: var(--darkest-blue);
+        border: none;
+        border-radius: 2rem;
+        padding: 1rem 2.4rem;
+        transition: all 0.3s;
+      }
+
+      .submit-btn:hover,
+      .submit-btn:active {
+        background-color: hsla(61, 70%, 52%, 0.45);
+      }
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--darkest-blue);
+    padding: 2.4rem;
+    border-radius: 0 1.5rem 1.5rem 5rem;
+
+    @include v.breakpoint(medium) {
+      border-radius: 0 0 1.5rem 1.5rem;
+    }
+
+    @include v.breakpoint(small) {
+      border-radius: 0;
+      padding: 2rem 1.5rem;
+    }
+
+    h1 {
+      color: var(--white);
+      margin-top: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      color: var(--light-blue);
+      line-height: 1.6;
+    }
+
+    .empty {
+      display: block;
+    }
+
+    .results {
+      display: none;
+      height: 100%;
+      text-align: left;
+
+      h1 {
+        margin-top: 0;
+      }
+
+      .summary-container {
+        background-color: hsl(202, 56%, 11%);
+        padding: 1.875rem;
+        border-radius: 0.6rem;
+        box-shadow: 0 -0.32rem 0 -0.09rem var(--lime);
+        margin-top: 3rem;
+
+        @include v.breakpoint(small) {
+          padding-inline: 1rem;
+        }
+
+        .monthly {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 0.8rem;
+          border-bottom: 0.05rem solid var(--medium-blue);
+          padding-bottom: 2.2rem;
+
+          @include v.breakpoint(medium) {
+            padding-bottom: 1.25rem;
+          }
+        }
+
+        .total {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 0.6rem;
+          padding-top: 2.2rem;
+
+          @include v.breakpoint(medium) {
+            padding-top: 1.25rem;
+          }
+
+          h1 {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

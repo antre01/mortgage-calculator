@@ -1,0 +1,159 @@
+@use "../variables/" as v;
+
+h1 {
+  font-size: clamp(1.5rem, 2.5vw, 1.625rem);
+  font-weight: v.$bold;
+  color: var(--darkest-blue);
+}
+
+h2 {
+  font-size: clamp(2rem, 2.5vw, 3.5rem);
+  font-weight: v.$bold;
+  color: var(--lime);
+}
+
+p {
+  font-size: 1rem;
+  font-weight: v.$medium;
+}
+
+label {
+  font-size: 1.1rem;
+  font-weight: v.$medium;
+  color: var(--dark-blue);
+}
+
+.text-label {
+  margin-bottom: 0.6rem;
+}
+
+.radio-label {
+  font-weight: v.$bold;
+  color: var(--darkest-blue);
+}
+
+input {
+  font-size: 1.3rem;
+  font-weight: v.$bold;
+  color: var(--darkest-blue);
+  background-color: transparent;
+  border: 0.09rem solid var(--medium-blue);
+  z-index: 2;
+}
+
+input[type="text"] {
+  width: 100%;
+  transition: all 0.3s;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.2rem;
+}
+
+.error-input {
+  animation: input-animation 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+@keyframes input-animation {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    transform: translateX(10px);
+  }
+  80% {
+    transform: translateX(8px);
+  }
+  90% {
+    transform: translateX(-8px);
+  }
+  100% {
+    border-color: var(--red);
+  }
+}
+
+.hide-error-input {
+  animation: scale-up-hor-left 0.15s ease-in-out both;
+}
+
+@keyframes scale-up-hor-left {
+  0% {
+    transform: scaleX(0.8);
+    transform-origin: 0% 0%;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: 0% 0%;
+  }
+}
+
+input[type="text"]:hover,
+input[type="text"]:active {
+  border: 0.09rem solid var(--darkest-blue);
+  outline: none;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border: 0.09rem solid var(--lime);
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  height: 1.3rem;
+  width: 1.3rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+.error {
+  font-size: 0.85rem;
+  font-weight: v.$medium;
+  color: var(--red);
+  margin-top: 0.7rem;
+  opacity: 0;
+}
+
+.error-active {
+  opacity: 1;
+  animation: show-error 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@keyframes show-error {
+  0% {
+    transform: scale(0.5);
+    transform-origin: 0% 100%;
+    margin-bottom: 0;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: 0% 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.error-hidden {
+  animation: hide-error 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@keyframes hide-error {
+  0% {
+    transform: scale(1);
+    transform-origin: 0% 100%;
+    margin-bottom: 1.5rem;
+  }
+  100% {
+    transform: scale(0.5);
+    transform-origin: 0% 100%;
+    margin-bottom: 0;
+  }
+}

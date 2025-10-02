@@ -1,0 +1,20 @@
+@use '../variables/' as v;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: v.$font;
+  font-size: 100%;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: var(--lightest-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
